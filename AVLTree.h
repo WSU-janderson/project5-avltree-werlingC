@@ -4,7 +4,9 @@
 
 #ifndef AVLTREE_H
 #define AVLTREE_H
+#include <optional>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -12,8 +14,14 @@ class AVLTree {
 public:
     using KeyType = std::string;
     using ValueType = size_t;
+
     /**
-    *Inserts a new keey-value pair into the tree. Rebalnces the tree as necessary.
+     *default constructor
+     */
+    AVLTree();
+
+    /**
+    *Inserts a new key-value pair into the tree. Rebalnces the tree as necessary.
     */
     bool insert(const std::string& key, size_t value);
 
@@ -30,7 +38,7 @@ public:
     /**
     *If the key is in the tree, then get will return the value assocaited with it.
     */
-    std::optional<size_t> get(const std::string& key) const;
+    optional<size_t> get(const std::string& key) const;
 
     /**
     *[] operator override that allows for indvidual values in the tree to bee accessed.
@@ -66,7 +74,7 @@ public:
     *= operator overload. Creates a deep copy of another tree and puts it into the tree that called it.
     * Deletes memory that is no longer being used after the assignment.
     */
-    void operator=(const AVLTree& other)
+    void operator=(const AVLTree& other);
 
     /**
     *Destructor for the AVLTree class
@@ -76,7 +84,7 @@ public:
     /**
     *Outputs all nodes in the AVL tree in the format "{Key: value}"
     */
-    friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree)
+    friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
 
 protected:
     class AVLNode {

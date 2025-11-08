@@ -2,6 +2,19 @@
 
 #include <string>
 
+
+//default constructor that sets the root pointer to null pointer
+AVLTree::AVLTree()
+{
+    root = nullptr;
+}
+
+//class deconstructor
+AVLTree::~AVLTree()
+{
+
+}
+
 size_t AVLTree::AVLNode::numChildren() const {
     return 0;
 }
@@ -14,6 +27,7 @@ size_t AVLTree::AVLNode::getHeight() const {
     return 0;
 }
 
+//removes a node from the tree and rebalances as necessary
 bool AVLTree::removeNode(AVLNode*& current){
     if (!current) {
         return false;
