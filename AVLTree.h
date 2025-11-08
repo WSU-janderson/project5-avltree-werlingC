@@ -12,6 +12,71 @@ class AVLTree {
 public:
     using KeyType = std::string;
     using ValueType = size_t;
+    /**
+    *Inserts a new keey-value pair into the tree. Rebalnces the tree as necessary.
+    */
+    bool insert(const std::string& key, size_t value);
+
+    /**
+    *Removes a node from a tree if the key is in the tree. Rebalances after removal if necessary.
+    */
+    bool remove(const KeyType& key);
+
+    /**
+    *Returns true if the tree does contain the method, and false if it does not.
+    */
+    bool contains(const std::string& key) const;
+
+    /**
+    *If the key is in the tree, then get will return the value assocaited with it.
+    */
+    std::optional<size_t> get(const std::string& key) const;
+
+    /**
+    *[] operator override that allows for indvidual values in the tree to bee accessed.
+    */
+    size_t& operator[](const std::string& key);
+
+    /**
+    *Returns a vector that returns all keys between two ranges.
+    */
+    vector<std::string> findRange( const std::string& lowKey, const std::string& highKey) const;
+
+    /**
+    *Returns a vector that contains all keys currently in the tree
+    */
+    std::vector<std::string> keys() const;
+
+    /**
+    *returns the number of key value pairs in the tree
+    */
+    size_t size() const;
+
+    /**
+    *Returns the height of the AVL tree
+    */
+    size_t getHeight() const;
+
+    /**
+    *copy constructor. Creates a deep copy of the AVL tree passed in
+    */
+    AVLTree(const AVLTree& other);
+
+    /**.
+    *= operator overload. Creates a deep copy of another tree and puts it into the tree that called it.
+    * Deletes memory that is no longer being used after the assignment.
+    */
+    void operator=(const AVLTree& other)
+
+    /**
+    *Destructor for the AVLTree class
+    */
+    ~AVLTree();
+
+    /**
+    *Outputs all nodes in the AVL tree in the format "{Key: value}"
+    */
+    friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree)
 
 protected:
     class AVLNode {
