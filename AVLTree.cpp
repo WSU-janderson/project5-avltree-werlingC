@@ -15,17 +15,6 @@ AVLTree::~AVLTree()
 
 }
 
-size_t AVLTree::AVLNode::numChildren() const {
-    return 0;
-}
-
-bool AVLTree::AVLNode::isLeaf() const {
-    return false;
-}
-
-size_t AVLTree::AVLNode::getHeight() const {
-    return 0;
-}
 
 //removes a node from the tree and rebalances as necessary
 bool AVLTree::removeNode(AVLNode*& current){
@@ -77,4 +66,39 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
 }
 
 void AVLTree::balanceNode(AVLNode *&node) {
+}
+
+
+
+//Node helper methods
+
+size_t AVLTree::AVLNode::numChildren() const {
+    size_t numNodes = 0;
+    //checks if left node exists
+    if (left != nullptr)
+    {
+        numNodes++;
+    }
+    //checks if right node exists
+    if (right != nullptr)
+    {
+        numNodes++;
+    }
+    return numNodes;
+}
+
+//if both left and right node pointers are null, then node must be a leaf and returns true
+bool AVLTree::AVLNode::isLeaf() const {
+    if (left == nullptr && right == nullptr)
+    {
+        return true;
+    }else
+    {
+        return false;
+    }
+}
+
+//returns height
+size_t AVLTree::AVLNode::getHeight() const {
+    return height;
 }
