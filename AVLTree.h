@@ -135,6 +135,25 @@ public:
      */
     int getBalance(AVLNode* node) const;
 
+    /**
+     *performs a right rotations on a subtree.
+     *The given node acts as the root of the subtree
+     */
+    void rotateRight(AVLNode*& node);
+
+    /**
+     *performs a left rotation on a subtree
+     *The given node acts as the root of the subtree
+     */
+    void rotateLeft(AVLNode*& node);
+
+    /**
+     * Checks the balnce of a node and decides what operations to perform
+     * the node given acts as the root of the subtree and is updated after any potential operations
+     */
+    void balanceNode(AVLNode*& node);
+
+
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node
     bool remove(AVLNode*& current, KeyType key);

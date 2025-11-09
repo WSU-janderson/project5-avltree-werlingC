@@ -101,6 +101,27 @@ int AVLTree::getBalance(AVLNode* node) const
 }
 
 
+//rotation and balance functions
+
+//performs a right rotation on a subtree anchored at a given node
+void AVLTree::rotateRight(AVLNode*& node)
+{
+    //gets nodes involved in the rotation
+    AVLNode* nodeA = node->left;
+    AVLNode* NodeB = nodeA->right;;
+
+    //rotate right
+    nodeA->right = node;
+    node->left = nodeB;
+
+    //updates height of old and new root
+    updateHeight(node);
+    updateHeight(nodeA);
+
+    node = nodeA;
+}
+
+
 //removes a node from the tree and rebalances as necessary
 bool AVLTree::removeNode(AVLNode*& current){
     if (!current) {
