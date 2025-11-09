@@ -15,6 +15,59 @@ AVLTree::~AVLTree()
 
 }
 
+//Inserts a new node. Starts the insert process and calls a recursive method
+bool AVLTree::insert(const std::string& key, size_t value)
+{
+    bool success = insertRecurive(root, key, value);
+    if (success)
+    {
+        treeSize++;
+    }
+    return success;
+}
+
+//recursive helper method the finds the correct location to place the new node
+bool AVLTree::insertRecursive(AVLNode*& node, const KeyType& key, ValueType value)
+{
+    //Case where the correct spot is found
+    if (node == nullptr)
+    {
+        node = new AVLNode();
+        node->key = key;
+        node->value = value;
+        node->left = nullptr;
+        node->right = nullptr;
+        node->height = 0;
+        return true;
+    }
+
+    //marks success as false because the current node can not be inserted on
+    bool success = false;
+
+    //Continue searching down the tree
+    if (key < node->key)
+    {
+        //if the key is less than current node's key, search it's left branch
+        success = insertRecursive(node->left, key, value);
+    }else if (key > node->key)
+    {
+        //if the key is greater than the current node's key, search it's right tree
+        success = insertRecursive(node->right, key, value);
+    }else
+    {
+        //duplicate key found
+        success = false;
+    }
+
+    //calls for the balance function to ensure the tree has not been unbalanced due to the new insertion
+    if (success)
+    {
+        balanceNode(node);
+    }
+
+    return success;
+}
+
 
 //removes a node from the tree and rebalances as necessary
 bool AVLTree::removeNode(AVLNode*& current){

@@ -113,6 +113,11 @@ public:
 
     private:
     AVLNode* root;
+    size_t treeSize;
+
+    //insert helper method
+    bool insertRecursive(AVLNode*& node, const KeyType& key, ValueType value)
+
 
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node
