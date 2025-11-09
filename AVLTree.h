@@ -116,8 +116,24 @@ public:
     size_t treeSize;
 
     //insert helper method
-    bool insertRecursive(AVLNode*& node, const KeyType& key, ValueType value)
+    bool insertRecursive(AVLNode*& node, const KeyType& key, ValueType value);
 
+
+    //Tree balancing methods
+    /**
+     *helper method that gets the height of a node and handles null pointers
+     */
+    static int getHeight(AVLNode* node);
+
+    /**
+     *Recursive helper method that updates a node's height based on chlildren's heights
+     */
+    void updateHeight(AVLNode*);
+
+    /**
+     *Calculates the balance factor of a node
+     */
+    int getBalance(AVLNode* node) const;
 
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node

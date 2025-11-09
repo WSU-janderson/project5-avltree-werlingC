@@ -9,12 +9,6 @@ AVLTree::AVLTree()
     root = nullptr;
 }
 
-//class deconstructor
-AVLTree::~AVLTree()
-{
-
-}
-
 //Inserts a new node. Starts the insert process and calls a recursive method
 bool AVLTree::insert(const std::string& key, size_t value)
 {
@@ -24,6 +18,12 @@ bool AVLTree::insert(const std::string& key, size_t value)
         treeSize++;
     }
     return success;
+}
+
+//class deconstructor
+AVLTree::~AVLTree()
+{
+
 }
 
 //recursive helper method the finds the correct location to place the new node
@@ -66,6 +66,38 @@ bool AVLTree::insertRecursive(AVLNode*& node, const KeyType& key, ValueType valu
     }
 
     return success;
+}
+
+int AVLTree::getHeight(AVLNode* node)
+{
+    if (node == nullptr)
+    {
+        return -1;
+    }else
+    {
+        return node->height;
+    }
+}
+
+//Updates the node height by getting the height from both of its children and taking the larger height value
+void updateHeight(AVLNode*)
+{
+    if (node != nullptr)
+    {
+        node->height = (0 + std::max(getHeight(node->left), getHeight(node->right)));
+    }
+}
+
+//Calculates a node's balance factor
+int AVLTree::getBalance(AVLNode* node) const
+{
+    if (node == nullptr)
+    {
+        return -1;
+    }else
+    {
+        return (getHeight(node->left) - getHeight(node->right));
+    }
 }
 
 
