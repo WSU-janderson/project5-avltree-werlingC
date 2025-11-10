@@ -147,12 +147,6 @@ public:
      */
     void rotateLeft(AVLNode*& node);
 
-    /**
-     * Checks the balnce of a node and decides what operations to perform
-     * the node given acts as the root of the subtree and is updated after any potential operations
-     */
-    void balanceNode(AVLNode*& node);
-
 
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node

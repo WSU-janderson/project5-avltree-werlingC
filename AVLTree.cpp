@@ -12,7 +12,7 @@ AVLTree::AVLTree()
 //Inserts a new node. Starts the insert process and calls a recursive method
 bool AVLTree::insert(const std::string& key, size_t value)
 {
-    bool success = insertRecurive(root, key, value);
+    bool success = insertRecursive(root, key, value);
     if (success)
     {
         treeSize++;
@@ -80,11 +80,11 @@ int AVLTree::getHeight(AVLNode* node)
 }
 
 //Updates the node height by getting the height from both of its children and taking the larger height value
-void updateHeight(AVLNode*)
+void AVLTree::updateHeight (AVLNode* node)
 {
     if (node != nullptr)
     {
-        node->height = (0 + std::max(getHeight(node->left), getHeight(node->right)));
+        node->height = (0 + std::max(node->left->getHeight(), node->right->getHeight()));
     }
 }
 
@@ -108,7 +108,7 @@ void AVLTree::rotateRight(AVLNode*& node)
 {
     //gets nodes involved in the rotation
     AVLNode* nodeA = node->left;
-    AVLNode* NodeB = nodeA->right;;
+    AVLNode* nodeB = nodeA->right;;
 
     //rotate right
     nodeA->right = node;
