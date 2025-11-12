@@ -208,3 +208,25 @@ bool AVLTree::AVLNode::isLeaf() const {
 size_t AVLTree::AVLNode::getHeight() const {
     return height;
 }
+
+//recursive method that puts all key-value pairs into an os stream object.
+//Uses in-order traversal
+void AVLTree::printTree(ostream& os, AVLNode* node) const
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+    //In-Order traversal
+    printTree(os, node->left);
+    string outStream = "{" + node->key + ": " + to_string(node->value) + "}\n";
+    os << outStream;
+    printTree(os, node->right);
+}
+
+//Overrides the << operator to allow for the whole tree to be output
+std::ostream& operator<<(std::ostream& os, const AVLTree& avlTree)
+{
+
+    return os;
+}

@@ -81,6 +81,8 @@ public:
     */
     ~AVLTree();
 
+
+
     /**
     *Outputs all nodes in the AVL tree in the format "{Key: value}"
     */
@@ -156,6 +158,10 @@ public:
     // You will implement this, but it is needed for removeNode()
     void balanceNode(AVLNode*& node);
 
+    /**
+    *recursive method to get all data key value pairs in a tree and appends them to an os object to be output
+    */
+    void printTree(ostream& os, AVLNode* node) const;
 };
 
 #endif //AVLTREE_H
