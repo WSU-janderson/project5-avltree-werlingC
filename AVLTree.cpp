@@ -7,6 +7,7 @@
 AVLTree::AVLTree()
 {
     root = nullptr;
+    treeSize = 0;
 }
 
 //Inserts a new node. Starts the insert process and calls a recursive method
@@ -68,11 +69,12 @@ bool AVLTree::insertRecursive(AVLNode*& node, const KeyType& key, ValueType valu
     return success;
 }
 
+//gets the height of a node
 int AVLTree::getHeight(AVLNode* node)
 {
     if (node == nullptr)
     {
-        return -1;
+        return 0;
     }else
     {
         return node->height;
@@ -84,7 +86,7 @@ void AVLTree::updateHeight (AVLNode* node)
 {
     if (node != nullptr)
     {
-        node->height = (0 + std::max(node->left->getHeight(), node->right->getHeight()));
+        node->height = (1 + std::max(getHeight(node->left), getHeight(node->right)));
     }
 }
 
@@ -103,12 +105,12 @@ int AVLTree::getBalance(AVLNode* node) const
 
 //rotation and balance functions
 
-//performs a right rotation on a subtree anchored at a given node
+//performs a right rotation on a subtree based on a given node
 void AVLTree::rotateRight(AVLNode*& node)
 {
     //gets nodes involved in the rotation
     AVLNode* nodeA = node->left;
-    AVLNode* nodeB = nodeA->right;;
+    AVLNode* nodeB = nodeA->right;
 
     //rotate right
     nodeA->right = node;
@@ -121,6 +123,24 @@ void AVLTree::rotateRight(AVLNode*& node)
     node = nodeA;
 }
 
+//performs a left rotation on a subtree based on a given node
+void AVLTree::rotateLeft(AVLNode*& node)
+{
+    AVLNode* nodeA = node->right;
+    AVLNode* nodeB = nodeA->left;
+
+    //rotate left
+    nodeA->left = node;
+    node->right = nodeB;
+
+    //updates old root's height
+    updateHeight(node);
+    //updates new root's height
+    updateHeight(nodeA);
+
+    //update pointer to new root
+    node = nodeA;
+}
 
 //removes a node from the tree and rebalances as necessary
 bool AVLTree::removeNode(AVLNode*& current){
@@ -172,6 +192,40 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
 }
 
 void AVLTree::balanceNode(AVLNode *&node) {
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    //updates height
+    updateHeight(node);
+
+    int balanceFactor = getBalance(node);
+
+    //Right rotation needed
+    if (balanceFactor > 1 && getBalance(node->left) >= 0)
+    {
+        rotateRight(node);
+    }
+
+    //Left-Right rotation needed
+    else if (balanceFactor > 1 && getBalance(node->left) < 0)
+    {
+        rotateLeft(node->left);
+        rotateRight(node);
+    }
+
+    //Right rotation needed
+    else if (balanceFactor < -1 && getBalance(node->right) <= 0)
+    {
+        rotateRight(node);
+    }
+    //Right-left rotation needed
+    else if (balanceFactor < -1 && getBalance(node->right) > 0)
+    {
+        rotateRight(node->right);
+        rotateLeft(node);
+    }
 }
 
 
@@ -208,6 +262,8 @@ bool AVLTree::AVLNode::isLeaf() const {
 size_t AVLTree::AVLNode::getHeight() const {
     return height;
 }
+
+//ostream methods
 
 //recursive method that puts all key-value pairs into an os stream object.
 //Uses in-order traversal

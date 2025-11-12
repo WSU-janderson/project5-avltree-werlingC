@@ -20,28 +20,28 @@ int main() {
     insertResult = tree.insert("X", 'X');// single rotate left
     cout << endl << endl;
     cout << tree << endl;
-    //
-    // insertResult = tree.insert("C", 'C');
-    // insertResult = tree.insert("A", 'A'); // single rotate right
-    // cout << endl << endl;
-    // cout << tree << endl;
-    //
-    // insertResult = tree.insert("D", 'D'); // double rotate right
-    // cout << endl << endl;
-    // cout << tree << endl;
-    //
-    // insertResult = tree.insert("R", 'R'); // double rotate left
-    // cout << endl << endl;
-    // cout << tree << endl;
-    //
-    // insertResult = tree.insert("V", 'V');
-    // insertResult = tree.insert("A", 'A'); // false, duplicate
-    // insertResult = tree.insert("Z", 'Z');
-    // insertResult = tree.insert("M", 'M');
-    // insertResult = tree.insert("D", 'D'); // false, duplicate
-    // cout << endl << endl;
-    // cout << tree << endl;
-    //
+
+    insertResult = tree.insert("C", 'C');
+    insertResult = tree.insert("A", 'A'); // single rotate right
+    cout << endl << endl;
+    cout << tree << endl;
+
+    insertResult = tree.insert("D", 'D'); // double rotate right
+    cout << endl << endl;
+    cout << tree << endl;
+
+    insertResult = tree.insert("R", 'R'); // double rotate left
+    cout << endl << endl;
+    cout << tree << endl;
+
+    insertResult = tree.insert("V", 'V');
+    insertResult = tree.insert("A", 'A'); // false, duplicate
+    insertResult = tree.insert("Z", 'Z');
+    insertResult = tree.insert("M", 'M');
+    insertResult = tree.insert("D", 'D'); // false, duplicate
+    cout << endl << endl;
+    cout << tree << endl;
+
     // // size and getHeight
     // cout << "tree size: " << tree.size() << endl; // 10
     // cout << "tree height: " << tree.getHeight() << endl; // 3
