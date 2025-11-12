@@ -21,6 +21,18 @@ bool AVLTree::insert(const std::string& key, size_t value)
     return success;
 }
 
+//returns how many nodes are in the AVL tree
+size_t AVLTree::size() const
+{
+    return treeSize;
+}
+
+//returns the current height of the tree
+size_t AVLTree::getHeight() const
+{
+    return getHeight(root);
+}
+
 //class deconstructor
 AVLTree::~AVLTree()
 {
