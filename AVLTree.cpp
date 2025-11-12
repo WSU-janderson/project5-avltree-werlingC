@@ -227,6 +227,6 @@ void AVLTree::printTree(ostream& os, AVLNode* node) const
 //Overrides the << operator to allow for the whole tree to be output
 std::ostream& operator<<(std::ostream& os, const AVLTree& avlTree)
 {
-
+    avlTree.printTree(os, avlTree.root);
     return os;
 }

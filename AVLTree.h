@@ -83,10 +83,7 @@ public:
 
 
 
-    /**
-    *Outputs all nodes in the AVL tree in the format "{Key: value}"
-    */
-    friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
+
 
 protected:
     class AVLNode {
@@ -162,6 +159,11 @@ public:
     *recursive method to get all data key value pairs in a tree and appends them to an os object to be output
     */
     void printTree(ostream& os, AVLNode* node) const;
+
+    /**
+    *Outputs all nodes in the AVL tree in the format "{Key: value}"
+    */
+    friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
 };
 
 #endif //AVLTREE_H
