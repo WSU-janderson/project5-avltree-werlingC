@@ -41,6 +41,7 @@ public:
     */
     optional<size_t> get(const std::string& key) const;
 
+
     /**
     *[] operator override that allows for indvidual values in the tree to bee accessed.
     */
@@ -158,6 +159,12 @@ public:
 
 
     bool containsRecursive(AVLNode* node, const string& key) const;
+
+    /**
+         *Recursive helper method for get that will search the tree recursively for a key and return the associated value if found.
+         */
+    optional<size_t> getRecursive(AVLNode* node, const KeyType& key) const;
+
 
     /**
     *recursive method to get all data key value pairs in a tree and appends them to an os object to be output

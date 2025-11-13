@@ -28,6 +28,34 @@ bool AVLTree::contains(const std::string& key) const
     return containsRecursive(root, key);
 }
 
+optional<size_t> AVLTree::get(const std::string& key) const
+{
+    return getRecursive(root, key);
+}
+
+optional<size_t> AVLTree::getRecursive(AVLNode* node, const KeyType& key) const
+{
+    //null node means end of tree, which means the key was not found
+    if (node == nullptr)
+    {
+        return nullopt;
+    }
+    //key was found and returns value
+    if (key == node->key)
+    {
+        return node->value;
+    }
+
+    //Key not found yet, decides which branch to follow to continue searching
+    if (key < node->key)
+    {
+        return getRecursive(node->left, key);
+    }else
+    {
+        return getRecursive(node->right, key);
+    }
+}
+
 //recursive method for contains the searches a tree branch for where they key should be located
 bool AVLTree::containsRecursive(AVLNode* node, const string& key) const
 {

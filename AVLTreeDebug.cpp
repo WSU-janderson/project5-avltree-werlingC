@@ -63,21 +63,21 @@ int main() {
         cout << "Value is in tree\n";
     }else
     {
-        cout << "Value is not in tree\n";
+        cout << "Value is not in tree\n\n";
     }
 
-//    // get
-//    optional<int> getResult;
-//
-//    getResult = tree.get("A"); // 65
-//    cout << "A: " << getResult.value() << endl;
-//
-//    getResult = tree.get("C"); // 67
-//    cout << "C: " << getResult.value() << endl;
-//
-//    getResult = tree.get("Q"); // getResult has no value
-//    cout << "Q: " << getResult.has_value() << endl; // print 0
-//    cout << endl;
+    // get
+    optional<int> getResult;
+
+    getResult = tree.get("A"); // 65
+    cout << "A: " << getResult.value() << endl;
+
+    getResult = tree.get("C"); // 67
+    cout << "C: " << getResult.value() << endl;
+
+    getResult = tree.get("Q"); // getResult has no value
+    cout << "Q: " << getResult.has_value() << endl; // print 0
+    cout << endl;
 //
 //    // findRange
 //    vector<int> rangeTest = tree.findRange("D", "W");
