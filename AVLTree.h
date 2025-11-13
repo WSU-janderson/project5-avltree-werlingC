@@ -30,6 +30,7 @@ public:
     */
     bool remove(const KeyType& key);
 
+
     /**
     *Returns true if the tree does contain the method, and false if it does not.
     */
@@ -154,6 +155,9 @@ public:
     bool removeNode(AVLNode*& current);
     // You will implement this, but it is needed for removeNode()
     void balanceNode(AVLNode*& node);
+
+
+    bool containsRecursive(AVLNode* node, const string& key) const;
 
     /**
     *recursive method to get all data key value pairs in a tree and appends them to an os object to be output

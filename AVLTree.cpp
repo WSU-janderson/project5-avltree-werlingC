@@ -21,6 +21,37 @@ bool AVLTree::insert(const std::string& key, size_t value)
     return success;
 }
 
+
+//calls the recursive contains method that searches the tree for a given key
+bool AVLTree::contains(const std::string& key) const
+{
+    return containsRecursive(root, key);
+}
+
+//recursive method for contains the searches a tree branch for where they key should be located
+bool AVLTree::containsRecursive(AVLNode* node, const string& key) const
+{
+    //if te node is null, then end of tree has been reached and key is not in tree
+    if (node == nullptr)
+    {
+        return false;
+    }
+    //key found
+    if (key == node->key)
+    {
+        return true;
+    }
+
+    //if node does not contain key, decide whether to navigate left or right to find it
+    if (key < node->key)
+    {
+        return containsRecursive(node->left, key);
+    }else
+    {
+        return containsRecursive(node->right, key);
+    }
+}
+
 //returns how many nodes are in the AVL tree
 size_t AVLTree::size() const
 {
@@ -239,6 +270,7 @@ void AVLTree::balanceNode(AVLNode *&node) {
         rotateLeft(node);
     }
 }
+
 
 
 

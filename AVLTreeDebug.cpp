@@ -46,12 +46,26 @@ int main() {
     cout << "tree size: " << tree.size() << endl; // 10
     cout << "tree height: " << tree.getHeight() << endl; // 3
     cout << endl;
-//
-//    // contains
-//    bool containsResult;
-//    containsResult = tree.contains("A"); // true
-//    containsResult = tree.contains("N"); // false
-//
+
+    //contains
+    bool containsResult;
+    containsResult = tree.contains("A"); // true
+    if (containsResult)
+    {
+        cout << "Value is in tree\n";
+    }else
+    {
+        cout << "Value is not in tree\n";
+    }
+    containsResult = tree.contains("N"); // false
+    if (containsResult)
+    {
+        cout << "Value is in tree\n";
+    }else
+    {
+        cout << "Value is not in tree\n";
+    }
+
 //    // get
 //    optional<int> getResult;
 //
