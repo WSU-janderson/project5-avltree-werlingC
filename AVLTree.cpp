@@ -33,6 +33,13 @@ optional<size_t> AVLTree::get(const std::string& key) const
     return getRecursive(root, key);
 }
 
+vector<size_t> AVLTree::findRange(const std::string& lowKey, const std::string& highKey) const
+{
+    vector<size_t> result;
+    findRangeRecursive(root, lowKey, highKey, result);
+    return result;
+}
+
 optional<size_t> AVLTree::getRecursive(AVLNode* node, const KeyType& key) const
 {
     //null node means end of tree, which means the key was not found
@@ -53,6 +60,29 @@ optional<size_t> AVLTree::getRecursive(AVLNode* node, const KeyType& key) const
     }else
     {
         return getRecursive(node->right, key);
+    }
+}
+
+void AVLTree::findRangeRecursive(AVLNode* node, const KeyType& lowKey, const KeyType& highKey, vector<size_t>& result) const
+{
+    //checks that node is not null
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    //checks which why to traverse the tree
+    if (node->key > lowKey)
+    {
+        findRangeRecursive(node->left, lowKey, highKey, result);
+    }
+    if (node->key >= lowKey && node->key <= highKey)
+    {
+        result.push_back(node->value);
+    }
+    if (node->key < highKey)
+    {
+        findRangeRecursive(node->right, lowKey, highKey, result);
     }
 }
 

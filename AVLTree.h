@@ -50,7 +50,8 @@ public:
     /**
     *Returns a vector that returns all keys between two ranges.
     */
-    vector<std::string> findRange( const std::string& lowKey, const std::string& highKey) const;
+    vector<size_t> findRange(const std::string& lowKey, const std::string& highKey) const;
+
 
     /**
     *Returns a vector that contains all keys currently in the tree
@@ -164,6 +165,11 @@ public:
          *Recursive helper method for get that will search the tree recursively for a key and return the associated value if found.
          */
     optional<size_t> getRecursive(AVLNode* node, const KeyType& key) const;
+
+    /**
+    *Recursive findRange helper method the performs in-order traversal to find all keys
+     */
+    void findRangeRecursive(AVLNode* node, const KeyType& lowKey, const KeyType& highKey, vector<size_t>& result) const;
 
 
     /**
