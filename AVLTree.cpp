@@ -21,6 +21,16 @@ bool AVLTree::insert(const std::string& key, size_t value)
     return success;
 }
 
+bool AVLTree::remove(const KeyType& key)
+{
+    bool success = remove(root, key);
+    if (success)
+    {
+        treeSize--;
+    }
+    return success;
+}
+
 
 //calls the recursive contains method that searches the tree for a given key
 bool AVLTree::contains(const std::string& key) const
@@ -44,6 +54,11 @@ vector<size_t> AVLTree::findRange(const std::string& lowKey, const std::string& 
     vector<size_t> result;
     findRangeRecursive(root, lowKey, highKey, result);
     return result;
+}
+
+std::vector<std::string> AVLTree::keys() const
+{
+    //TODO: Implement this function and it's recursive helper
 }
 
 optional<size_t> AVLTree::getRecursive(AVLNode* node, const KeyType& key) const
@@ -119,6 +134,20 @@ AVLTree::AVLNode& AVLTree::bracketRecursive(AVLNode*& node, const std::string& k
 
 }
 
+//recursive helper to release all nodes from memory
+void AVLTree::clear(AVLNode*& node)
+{
+    //goes through the tree with in-order traversal
+    if (node!= nullptr)
+    {
+        //clears left and right subtrees recursively before deleting the node
+        clear(node->left);
+        clear(node->right);
+        delete node;
+        node = nullptr;
+    }
+}
+
 //recursive method for contains the searches a tree branch for where they key should be located
 bool AVLTree::containsRecursive(AVLNode* node, const string& key) const
 {
@@ -155,10 +184,15 @@ size_t AVLTree::getHeight() const
     return getHeight(root);
 }
 
+void AVLTree::operator=(const AVLTree& other)
+{
+    //TODO: Implement this function and it's recursive helper
+}
+
 //class deconstructor
 AVLTree::~AVLTree()
 {
-
+    clear(root);
 }
 
 //recursive helper method the finds the correct location to place the new node
@@ -322,9 +356,42 @@ bool AVLTree::removeNode(AVLNode*& current){
 }
 
 bool AVLTree::remove(AVLNode *&current, KeyType key) {
-    return false;
+    //checks for null node
+    if (current == nullptr)
+    {
+        return false;
+    }
+
+    //variable that determines if value was found
+    bool success = false;
+
+    //go left
+    if (key < current->key)
+    {
+        success = remove(current->left, key);
+    }
+    //go right
+    else if (key > current->key)
+    {
+        success = remove(current->right, key);
+    }
+    //node found
+    else
+    {
+        success = removeNode(current);
+    }
+
+    //rebalances the node if the key was removed
+    if (success)
+    {
+        balanceNode(current);
+    }
+
+    return success;
+
 }
 
+//takes the given node and determines if it needs
 void AVLTree::balanceNode(AVLNode *&node) {
     if (node == nullptr)
     {

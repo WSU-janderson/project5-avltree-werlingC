@@ -177,6 +177,11 @@ public:
     AVLNode& bracketRecursive(AVLNode*& node, const std::string& key);
 
     /**
+     *recursive method to clear a tree upon deletion and release memeory
+     */
+    void clear(AVLNode*& node);
+
+    /**
     *recursive method to get all data key value pairs in a tree and appends them to an os object to be output
     */
     void printTree(ostream& os, AVLNode* node) const;
