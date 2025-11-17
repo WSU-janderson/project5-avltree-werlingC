@@ -33,6 +33,12 @@ optional<size_t> AVLTree::get(const std::string& key) const
     return getRecursive(root, key);
 }
 
+
+size_t& AVLTree::operator[](const std::string& key)
+{
+    return (bracketRecursive(root, key)).value;
+}
+
 vector<size_t> AVLTree::findRange(const std::string& lowKey, const std::string& highKey) const
 {
     vector<size_t> result;
@@ -84,6 +90,33 @@ void AVLTree::findRangeRecursive(AVLNode* node, const KeyType& lowKey, const Key
     {
         findRangeRecursive(node->right, lowKey, highKey, result);
     }
+}
+
+AVLTree::AVLNode& AVLTree::bracketRecursive(AVLNode*& node, const std::string& key)
+{
+    //checks for null node
+    if (node == nullptr)
+    {
+        return *node;
+    }
+
+    //goes left
+    if (key < node->key)
+    {
+        return bracketRecursive(node->left, key);
+    }
+    //goes right
+    else if (key > node->key)
+    {
+        return bracketRecursive(node->right, key);
+    }
+    //node found
+    else
+    {
+        return *node;
+    }
+
+
 }
 
 //recursive method for contains the searches a tree branch for where they key should be located

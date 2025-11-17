@@ -86,12 +86,12 @@ int main() {
         cout << val << " ";
     }
     cout << endl << endl;
-//
-//    // operator[]
-//    tree["A"] = 108;
-//    cout << tree << endl;
-//    cout << endl;
-//
+
+    // operator[]
+    tree["A"] = 108;
+    cout << tree << endl;
+    cout << endl;
+
 //    // remove
 //    bool removeResult;
 //    removeResult= tree.remove("A"); // "A" is a leaf

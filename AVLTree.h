@@ -43,7 +43,7 @@ public:
 
 
     /**
-    *[] operator override that allows for indvidual values in the tree to bee accessed.
+    *[] operator override that allows for individual values in the tree to be returned as a reference
     */
     size_t& operator[](const std::string& key);
 
@@ -171,6 +171,10 @@ public:
      */
     void findRangeRecursive(AVLNode* node, const KeyType& lowKey, const KeyType& highKey, vector<size_t>& result) const;
 
+    /**
+     *Recursive helper method that returns a reference to a value in a node
+     */
+    AVLNode& bracketRecursive(AVLNode*& node, const std::string& key);
 
     /**
     *recursive method to get all data key value pairs in a tree and appends them to an os object to be output
