@@ -213,9 +213,20 @@ size_t AVLTree::getHeight() const
     return getHeight(root);
 }
 
-void AVLTree::operator=(const AVLTree& other)
+void AVLTree::operator=(const AVLTree& otherTree)
 {
-    //TODO: Implement this function and it's recursive helper
+    //checks for self-assignment
+    if (this == &otherTree)
+    {
+        return;
+    }
+
+    //empties the current tree so that it can be overwritten
+    clear(root);
+
+    //copys all nodes from the other tree
+    root = copy(otherTree.root);
+    treeSize = otherTree.treeSize;
 }
 
 //class deconstructor

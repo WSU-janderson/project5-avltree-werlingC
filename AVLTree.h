@@ -73,10 +73,6 @@ public:
     */
     size_t getHeight() const;
 
-    /**
-    *copy constructor. Creates a deep copy of the AVL tree passed in
-    */
-    AVLTree(const AVLTree& other);
 
     /**.
     *= operator overload. Creates a deep copy of another tree and puts it into the tree that called it.

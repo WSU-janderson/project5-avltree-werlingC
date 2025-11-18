@@ -112,5 +112,10 @@ int main() {
     cout << endl << endl;
     cout << tree << endl;
 
+    //copy
+    AVLTree treeCopy = tree;
+    cout << endl << endl;
+    cout << treeCopy << endl;
+
     return 0;
 }
