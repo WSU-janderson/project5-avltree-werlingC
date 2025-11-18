@@ -21,6 +21,11 @@ public:
     AVLTree();
 
     /**
+     *copy constructor
+     */
+    AVLTree(const AVLTree& other);
+
+    /**
     *Inserts a new key-value pair into the tree. Rebalnces the tree as necessary.
     */
     bool insert(const std::string& key, size_t value);
@@ -180,6 +185,11 @@ public:
      *recursive method to clear a tree upon deletion and release memeory
      */
     void clear(AVLNode*& node);
+
+    /**
+     *Recursive helper for copying data from one tree to another
+     */
+    AVLNode* copy(const AVLNode* node) const;
 
     /**
     *recursive method to get all data key value pairs in a tree and appends them to an os object to be output

@@ -10,6 +10,13 @@ AVLTree::AVLTree()
     treeSize = 0;
 }
 
+//copy constructor that takes another tree and copys all value into tree on left hand side
+AVLTree::AVLTree(const AVLTree& otherTree)
+{
+    root = copy(otherTree.root);
+    treeSize = otherTree.treeSize;
+}
+
 //Inserts a new node. Starts the insert process and calls a recursive method
 bool AVLTree::insert(const std::string& key, size_t value)
 {
@@ -146,6 +153,28 @@ void AVLTree::clear(AVLNode*& node)
         delete node;
         node = nullptr;
     }
+}
+
+AVLTree::AVLNode* AVLTree::copy(const AVLNode* node) const
+{
+    //checks for null node (end of tree)
+    if (node == nullptr)
+    {
+        return nullptr;
+    }
+
+    //creates a new node and copies the data
+    AVLNode* newNode = new AVLNode();
+    newNode->key = node->key;
+    newNode->value = node->value;
+    newNode->height = node->height;
+
+    //Calls copy for children recursively
+    newNode->left = copy(node->left);
+    newNode->right = copy(node->right);
+
+    //returns the node
+    return newNode;
 }
 
 //recursive method for contains the searches a tree branch for where they key should be located
