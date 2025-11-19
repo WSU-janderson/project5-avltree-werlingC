@@ -63,9 +63,13 @@ vector<size_t> AVLTree::findRange(const std::string& lowKey, const std::string& 
     return result;
 }
 
+//Returns all keys in the tree as a vector of string in order
 std::vector<std::string> AVLTree::keys() const
 {
-    //TODO: Implement this function and it's recursive helper
+    //Creates a vector, then calls the recursive method to gather all keys in order from the tree
+    vector<string> keyVector;
+    keysRecursive(root, keyVector);
+    return keyVector;
 }
 
 optional<size_t> AVLTree::getRecursive(AVLNode* node, const KeyType& key) const
@@ -175,6 +179,21 @@ AVLTree::AVLNode* AVLTree::copy(const AVLNode* node) const
 
     //returns the node
     return newNode;
+}
+
+//recursive helper for the keys function to search the tree for all keys
+void AVLTree::keysRecursive(AVLNode* node, vector<string>& keyVector) const
+{
+    //checks for null node (end of tree)
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    //recursive call for the keysRecursive method
+    keysRecursive(node->left, keyVector);
+    keyVector.push_back(node->key);
+    keysRecursive(node->right, keyVector);
 }
 
 //recursive method for contains the searches a tree branch for where they key should be located

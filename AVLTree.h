@@ -26,7 +26,7 @@ public:
     AVLTree(const AVLTree& other);
 
     /**
-    *Inserts a new key-value pair into the tree. Rebalnces the tree as necessary.
+    *Inserts a new key-value pair into the tree. Rebalances the tree as necessary.
     */
     bool insert(const std::string& key, size_t value);
 
@@ -186,6 +186,12 @@ public:
      *Recursive helper for copying data from one tree to another
      */
     AVLNode* copy(const AVLNode* node) const;
+
+    /**
+     *Recursive helper method for the keys function
+     *Performs an in-order search for the keys
+     */
+    void keysRecursive(AVLNode* node, vector<string>& result) const;
 
     /**
     *recursive method to get all data key value pairs in a tree and appends them to an os object to be output

@@ -117,5 +117,13 @@ int main() {
     cout << endl << endl;
     cout << treeCopy << endl;
 
+    //keys
+    vector<string> allKeys = tree.keys();
+    cout << endl << endl;
+    for (size_t i = 0; i < allKeys.size(); i++)
+    {
+        cout << allKeys[i] << endl;
+    }
+
     return 0;
 }
