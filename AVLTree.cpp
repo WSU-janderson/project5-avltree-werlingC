@@ -20,19 +20,24 @@ AVLTree::AVLTree(const AVLTree& otherTree)
 //Inserts a new node. Starts the insert process and calls a recursive method
 bool AVLTree::insert(const std::string& key, size_t value)
 {
+    //variable that stores whether or not the new node was able to be inserted
     bool success = insertRecursive(root, key, value);
     if (success)
     {
+        //increase size of tree on success
         treeSize++;
     }
     return success;
 }
 
+//Public call for the remove method.
 bool AVLTree::remove(const KeyType& key)
 {
+    //variable that holds whether or not the node was able to be removed
     bool success = remove(root, key);
     if (success)
     {
+        //decrease size of tree on success
         treeSize--;
     }
     return success;
@@ -45,20 +50,24 @@ bool AVLTree::contains(const std::string& key) const
     return containsRecursive(root, key);
 }
 
+//public call for the get mehtod that calls the recursive helper method
 optional<size_t> AVLTree::get(const std::string& key) const
 {
     return getRecursive(root, key);
 }
 
-
+//public call for the bracket operator override. Calls a recursive method to find the value associated with the given key
 size_t& AVLTree::operator[](const std::string& key)
 {
     return (bracketRecursive(root, key)).value;
 }
 
+//takes in two keys and calls a recursive method to find all keys in between them
 vector<size_t> AVLTree::findRange(const std::string& lowKey, const std::string& highKey) const
 {
+    //vector that holds the result
     vector<size_t> result;
+
     findRangeRecursive(root, lowKey, highKey, result);
     return result;
 }
@@ -72,6 +81,7 @@ std::vector<std::string> AVLTree::keys() const
     return keyVector;
 }
 
+//recursive helper methods that will recusrively call itself to locate the node that has the given key
 optional<size_t> AVLTree::getRecursive(AVLNode* node, const KeyType& key) const
 {
     //null node means end of tree, which means the key was not found
@@ -95,6 +105,7 @@ optional<size_t> AVLTree::getRecursive(AVLNode* node, const KeyType& key) const
     }
 }
 
+//Recursive helper method for the findRange method
 void AVLTree::findRangeRecursive(AVLNode* node, const KeyType& lowKey, const KeyType& highKey, vector<size_t>& result) const
 {
     //checks that node is not null
@@ -104,20 +115,24 @@ void AVLTree::findRangeRecursive(AVLNode* node, const KeyType& lowKey, const Key
     }
 
     //checks which why to traverse the tree
+    //goes to the left branch
     if (node->key > lowKey)
     {
         findRangeRecursive(node->left, lowKey, highKey, result);
     }
+    //found a node we are looking for
     if (node->key >= lowKey && node->key <= highKey)
     {
         result.push_back(node->value);
     }
+    //goes to the right branch
     if (node->key < highKey)
     {
         findRangeRecursive(node->right, lowKey, highKey, result);
     }
 }
 
+//Recursive helper method for the bracket operator
 AVLTree::AVLNode& AVLTree::bracketRecursive(AVLNode*& node, const std::string& key)
 {
     //checks for null node
@@ -151,7 +166,7 @@ void AVLTree::clear(AVLNode*& node)
     //goes through the tree with in-order traversal
     if (node!= nullptr)
     {
-        //clears left and right subtrees recursively before deleting the node
+        //clears left and right subtrees recursively before deleting the root node
         clear(node->left);
         clear(node->right);
         delete node;
@@ -159,6 +174,7 @@ void AVLTree::clear(AVLNode*& node)
     }
 }
 
+//recursive copy method that copys all nodes from a start node down are copied and linked together, and ultimatly returning the root
 AVLTree::AVLNode* AVLTree::copy(const AVLNode* node) const
 {
     //checks for null node (end of tree)
@@ -192,6 +208,7 @@ void AVLTree::keysRecursive(AVLNode* node, vector<string>& keyVector) const
 
     //recursive call for the keysRecursive method
     keysRecursive(node->left, keyVector);
+    //adds current node before right subtree nodes to maintain in-order traversal
     keyVector.push_back(node->key);
     keysRecursive(node->right, keyVector);
 }
@@ -199,7 +216,7 @@ void AVLTree::keysRecursive(AVLNode* node, vector<string>& keyVector) const
 //recursive method for contains the searches a tree branch for where they key should be located
 bool AVLTree::containsRecursive(AVLNode* node, const string& key) const
 {
-    //if te node is null, then end of tree has been reached and key is not in tree
+    //if the node is null, then end of tree has been reached and key is not in tree
     if (node == nullptr)
     {
         return false;
@@ -232,6 +249,7 @@ size_t AVLTree::getHeight() const
     return getHeight(root);
 }
 
+//= operator override that allows for a copy of a tree to be placed into another tree object
 void AVLTree::operator=(const AVLTree& otherTree)
 {
     //checks for self-assignment
@@ -251,6 +269,7 @@ void AVLTree::operator=(const AVLTree& otherTree)
 //class deconstructor
 AVLTree::~AVLTree()
 {
+    //calls the clear method, which recursively frees up the memory that each node in the tree took up.
     clear(root);
 }
 
@@ -260,6 +279,7 @@ bool AVLTree::insertRecursive(AVLNode*& node, const KeyType& key, ValueType valu
     //Case where the correct spot is found
     if (node == nullptr)
     {
+        //inserts information into a new node
         node = new AVLNode();
         node->key = key;
         node->value = value;
@@ -273,11 +293,14 @@ bool AVLTree::insertRecursive(AVLNode*& node, const KeyType& key, ValueType valu
     bool success = false;
 
     //Continue searching down the tree
+    //goes to the left
     if (key < node->key)
     {
         //if the key is less than current node's key, search it's left branch
         success = insertRecursive(node->left, key, value);
-    }else if (key > node->key)
+    }
+    //goes right
+    else if (key > node->key)
     {
         //if the key is greater than the current node's key, search it's right tree
         success = insertRecursive(node->right, key, value);
@@ -311,9 +334,11 @@ int AVLTree::getHeight(AVLNode* node)
 //Updates the node height by getting the height from both of its children and taking the larger height value
 void AVLTree::updateHeight (AVLNode* node)
 {
+
     if (node != nullptr)
     {
-        node->height = (1 + std::max(getHeight(node->left), getHeight(node->right)));
+        //height is the larger value between its two branches
+        node->height = (1 + max(getHeight(node->left), getHeight(node->right)));
     }
 }
 
@@ -322,9 +347,11 @@ int AVLTree::getBalance(AVLNode* node) const
 {
     if (node == nullptr)
     {
+        //null nodes are height -1 since leaf nodes are 0. Also serves to let the program know it's reached the end of the tree
         return -1;
     }else
     {
+        //Gets height of the left and right subtrees and subtracts them, then returns that value
         return (getHeight(node->left) - getHeight(node->right));
     }
 }
@@ -336,37 +363,38 @@ int AVLTree::getBalance(AVLNode* node) const
 void AVLTree::rotateRight(AVLNode*& node)
 {
     //gets nodes involved in the rotation
-    AVLNode* nodeA = node->left;
-    AVLNode* nodeB = nodeA->right;
+    AVLNode* pivot = node->left;
+    AVLNode* hook = pivot->right;
 
-    //rotate right
-    nodeA->right = node;
-    node->left = nodeB;
+    //rotates right
+    pivot->right = node;
+    node->left = hook;
 
     //updates height of old and new root
     updateHeight(node);
-    updateHeight(nodeA);
+    updateHeight(pivot);
 
-    node = nodeA;
+    //the root node is set to what was the pivot
+    node = pivot;
 }
 
 //performs a left rotation on a subtree based on a given node
 void AVLTree::rotateLeft(AVLNode*& node)
 {
-    AVLNode* nodeA = node->right;
-    AVLNode* nodeB = nodeA->left;
+    AVLNode* pivot = node->right;
+    AVLNode* hook = pivot->left;
 
     //rotate left
-    nodeA->left = node;
-    node->right = nodeB;
+    pivot->left = node;
+    node->right = hook;
 
     //updates old root's height
     updateHeight(node);
     //updates new root's height
-    updateHeight(nodeA);
+    updateHeight(pivot);
 
     //update pointer to new root
-    node = nodeA;
+    node = pivot;
 }
 
 //removes a node from the tree and rebalances as necessary
@@ -414,6 +442,7 @@ bool AVLTree::removeNode(AVLNode*& current){
     return true;
 }
 
+//recursive helper method that finds the node with the key that is to be deleted
 bool AVLTree::remove(AVLNode *&current, KeyType key) {
     //checks for null node
     if (current == nullptr)
@@ -424,12 +453,12 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
     //variable that determines if value was found
     bool success = false;
 
-    //go left
+    //goes left
     if (key < current->key)
     {
         success = remove(current->left, key);
     }
-    //go right
+    //goes right
     else if (key > current->key)
     {
         success = remove(current->right, key);
@@ -460,9 +489,10 @@ void AVLTree::balanceNode(AVLNode *&node) {
     //updates height
     updateHeight(node);
 
+    //balance factor should be between -1 and 1
     int balanceFactor = getBalance(node);
 
-    //Right rotation needed
+    //Right rotation needed, leftside heavy
     if (balanceFactor > 1 && getBalance(node->left) >= 0)
     {
         rotateRight(node);
@@ -475,7 +505,7 @@ void AVLTree::balanceNode(AVLNode *&node) {
         rotateRight(node);
     }
 
-    //Right rotation needed
+    //Right rotation needed, rightside heavy
     else if (balanceFactor < -1 && getBalance(node->right) <= 0)
     {
         rotateRight(node);
@@ -488,11 +518,9 @@ void AVLTree::balanceNode(AVLNode *&node) {
     }
 }
 
-
-
-
 //Node helper methods
 
+//returns the number of children a node has
 size_t AVLTree::AVLNode::numChildren() const {
     size_t numNodes = 0;
     //checks if left node exists
@@ -519,7 +547,7 @@ bool AVLTree::AVLNode::isLeaf() const {
     }
 }
 
-//returns height
+//returns height of a node
 size_t AVLTree::AVLNode::getHeight() const {
     return height;
 }
@@ -530,20 +558,25 @@ size_t AVLTree::AVLNode::getHeight() const {
 //Uses in-order traversal
 void AVLTree::printTree(ostream& os, AVLNode* node) const
 {
+    //reached the end of the tree
     if (node == nullptr)
     {
         return;
     }
-    //In-Order traversal
+
+    //In-Order traversal. Recursively calls the left branch and adds those key-value pairs to the ostream.
+    //Then the current node is added to ostream, then the right branch is added to the ostream
     printTree(os, node->left);
+    //I had to put everything into a string since for some reason the ostream was not letting me chain << operators.
     string outStream = "{" + node->key + ": " + to_string(node->value) + "}\n";
     os << outStream;
     printTree(os, node->right);
 }
 
 //Overrides the << operator to allow for the whole tree to be output
-std::ostream& operator<<(std::ostream& os, const AVLTree& avlTree)
+ostream& operator<<(std::ostream& os, const AVLTree& avlTree)
 {
+    //calls the recursive helper to print the tree
     avlTree.printTree(os, avlTree.root);
     return os;
 }
